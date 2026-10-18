@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>胡昊杨，生日快乐！🎂</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  :root{ --cs: 1; }
+  html,body{height:100%;}
+  body{
+    min-height:100vh; min-height:100dvh;
+    background: radial-gradient(ellipse at 50% 110%, #2b1b52 0%, #171034 42%, #08060f 100%);
+    font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;
+    color:#fff;
+    display:flex; align-items:center; justify-content:center;
+    padding:32px 16px;
+    overflow-x:hidden;
+    -webkit-tap-highlight-color:transparent;
+  }
+
+  /* ===== 星空 ===== */
+  .stars{position:fixed;inset:0;z-index:0;pointer-events:none;}
+  .star{
+    position:absolute;width:var(--sz);height:var(--sz);
+    background:#fff;border-radius:50%;opacity:.6;
+    box-shadow:0 0 6px rgba(255,255,255,.85);
+    animation:twinkle 3s ease-in-out infinite;
+  }
+  @keyframes twinkle{
+    0%,100%{opacity:.12;transform:scale(.7);}
+    50%{opacity:.95;transform:scale(1.25);}
+  }
+
+  /* ===== 气球 ===== */
+  .balloons{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden;}
+  .balloon{
+    position:absolute;bottom:-180px;
+    width:44px;height:54px;
+    border-radius:50% 50% 50% 50% / 62% 62% 38% 38%;
+    opacity:.8;
+    animation:floatUp linear infinite;
+  }
+  .balloon::before{
+    content:"";position:absolute;left:22%;top:16%;
+    width:12px;height:16px;border-radius:50%;
+    background:rgba(255,255,255,.6);filter:blur(2px);
+  }
+  .balloon::after{
+    content:"";position:absolute;left:50%;top:100%;
+    width:1px;height:44px;background:rgba(255,255,255,.3);
+    transform:translateX(-50%);
+  }
+  @keyframes floatUp{
+    0%{transform:translateY(0) translateX(0) rotate(-4deg);}
+    50%{transform:translateY(-55vh) translateX(26px) rotate(4deg);}
+    100%{transform:translateY(-115vh) translateX(-14px) rotate(-3deg);}
+  }
+
+  /* ===== 主体 ===== */
+  .stage{
+    position:relative;z-index:2;margin:auto;
+    display:flex;flex-direction:column;align-items:center;
+    text-align:center;
+  }
+  .eyebrow{
+    font-size:clamp(10px,2.6vw,13px);
+    letter-spacing:.52em;text-indent:.52em;
+    color:rgba(255,255,255,.42);
+    margin-bottom:6px;
+  }
+  .name{
+    font-size:clamp(34px,8vw,62px);
+    font-weight:800;letter-spacing:.06em;
+    background:linear-gradient(90deg,#ffd86b,#ff8fb1,#a78bfa,#7dd3fc,#ffd86b);
+    background-size:300% 100%;
+    -webkit-background-clip:text;background-clip:text;
+    color:transparent;
+    animation:flow 6s linear infinite;
+    filter:drop-shadow(0 0 22px rgba(255,160,210,.4));
+  }
+  @keyframes flow{to{background-position:300% 0;}}
+  .sub{
+    font-size:clamp(15px,3.6vw,20px);
+    color:rgba(255,255,255,.82);
+    letter-spacing:.16em;text-indent:.16em;
+    margin-top:4px;
+  }
+
+  /* ===== 蛋糕 ===== */
+  .cake-wrap{margin:24px 0 6px;}
+  .cake{
+    position:relative;
+    display:flex;flex-direction:column;align-items:center;
+    cursor:pointer;
+    transform:scale(var(--cs));
+    transition:transform .25s ease;
+    outline:none;
+  }
+  .cake:active{transform:scale(calc(var(--cs) * .96));}
+  .cake.lit::after{
+    content:"";position:absolute;left:50%;top:-40px;
+    width:230px;height:230px;transform:translateX(-50%);
+    background:radial-gradient(circle, rgba(255,180,90,.28), transparent 66%);
+    pointer-events:none;
+    animation:pulse 2.6s ease-in-out infinite;
+  }
+  @keyframes pulse{0%,100%{opacity:.7;}50%{opacity:1;}}
+
+  .candle{
+    position:relative;z-index:4;
+    width:12px;height:48px;
+    background:repeating-linear-gradient(45deg,#ff6b8b 0 6px,#fff 6px 12px);
+    border-radius:4px;
+    margin-bottom:-10px;
+    box-shadow:0 2px 6px rgba(0,0,0,.35);
+  }
+  .candle.smoke::after{
+    content:"";position:absolute;left:50%;top:-16px;
+    width:8px;height:8px;border-radius:50%;
+    background:rgba(205,205,225,.6);
+    transform:translateX(-50%);
+    animation:smokeUp 1.5s ease-out forwards;
+  }
+  @keyframes smokeUp{
+    0%{opacity:.75;transform:translate(-50%,0) scale(1);}
+    100%{opacity:0;transform:translate(-50%,-52px) scale(3.6);}
+  }
+
+  .flame{
+    position:absolute;left:50%;top:-26px;
+    width:16px;height:26px;
+    transform:translateX(-50%);
+    background:radial-gradient(circle at 50% 76%,#fffbe0 0%,#ffd75c 34%,#ff8b3d 70%,rgba(255,90,0,0) 100%);
+    border-radius:50% 50% 50% 50% / 66% 66% 34% 34%;
+    box-shadow:0 0 22px 8px rgba(255,175,70,.5), 0 0 64px 22px rgba(255,120,20,.22);
+    animation:flicker .28s ease-in-out infinite alternate;
+    transition:opacity .35s, transform .35s;
+  }
+  @keyframes flicker{
+    from{transform:translateX(-50%) scale(1) rotate(-2deg);opacity:.94;}
+    to{transform:translateX(-50%) scale(1.12,.9) rotate(2deg);opacity:1;}
+  }
+  .flame.out{
+    animation:none;opacity:0;
+    transform:translateX(-50%) scale(.15);
+  }
+
+  .layer{
+    position:relative;
+    border-radius:14px 14px 6px 6px;
+    box-shadow:0 8px 18px rgba(0,0,0,.38), inset 0 -10px 0 rgba(0,0,0,.1);
+    background-blend-mode:normal;
+  }
+  .layer::before{
+    content:"";position:absolute;left:-2px;right:-2px;top:-9px;height:18px;
+    background-image:radial-gradient(circle at 9px 0,#fff6fa 9px,transparent 9.5px);
+    background-size:18px 18px;
+    background-repeat:repeat-x;
+    filter:drop-shadow(0 2px 2px rgba(0,0,0,.16));
+  }
+  .l1{
+    width:106px;height:42px;
+    background-image:linear-gradient(90deg,rgba(0,0,0,.16),transparent 32%,transparent 68%,rgba(0,0,0,.16)),
+                     linear-gradient(180deg,#ffb3c9,#ef7099);
+  }
+  .l2{
+    width:136px;height:46px;
+    background-image:linear-gradient(90deg,rgba(0,0,0,.16),transparent 32%,transparent 68%,rgba(0,0,0,.16)),
+                     linear-gradient(180deg,#ffd9a8,#eda45d);
+  }
+  .l3{
+    width:168px;height:52px;
+    background-image:linear-gradient(90deg,rgba(0,0,0,.16),transparent 32%,transparent 68%,rgba(0,0,0,.16)),
+                     linear-gradient(180deg,#c8a6f8,#9a6ce0);
+  }
+  .plate{
+    width:200px;height:14px;
+    border-radius:50%;
+    background:linear-gradient(180deg,rgba(232,230,245,.85),rgba(160,158,190,.5));
+    box-shadow:0 10px 26px rgba(0,0,0,.45);
+    margin-top:-2px;
+  }
+
+  .hint{
+    margin-top:22px;
+    font-size:clamp(13px,3.2vw,15px);
+    color:rgba(255,255,255,.62);
+    animation:breathe 2.4s ease-in-out infinite;
+  }
+  @keyframes breathe{0%,100%{opacity:.42;}50%{opacity:1;}}
+
+  /* ===== 彩带画布 ===== */
+  #fx{position:fixed;inset:0;z-index:30;pointer-events:none;}
+
+  /* ===== 祝福卡片 ===== */
+  .card{
+    position:fixed;inset:0;z-index:20;
+    display:flex;align-items:center;justify-content:center;
+    padding:24px;
+    background:rgba(8,6,20,.55);
+    backdrop-filter:blur(7px);
+    -webkit-backdrop-filter:blur(7px);
+    opacity:0;pointer-events:none;
+    transition:opacity .5s ease;
+  }
+  .card.show{opacity:1;pointer-events:auto;}
+  .card-inner{
+    max-width:520px;width:100%;
+    background:linear-gradient(160deg,rgba(255,255,255,.14),rgba(255,255,255,.045));
+    border:1px solid rgba(255,255,255,.22);
+    border-radius:26px;
+    padding:38px 28px 26px;
+    text-align:center;
+    box-shadow:0 24px 70px rgba(0,0,0,.55);
+    transform:scale(.85) translateY(24px);
+    transition:transform .6s cubic-bezier(.2,1.2,.4,1);
+  }
+  .card.show .card-inner{transform:scale(1) translateY(0);}
+  .cake-emoji{font-size:46px;line-height:1;margin-bottom:12px;}
+  .card h2{
+    font-size:clamp(19px,4.6vw,25px);
+    font-weight:700;letter-spacing:.04em;
+    background:linear-gradient(90deg,#ffd86b,#ff8fb1,#a78bfa);
+    -webkit-background-clip:text;background-clip:text;
+    color:transparent;
+    margin-bottom:18px;
+  }
+  .wish{
+    font-size:clamp(14px,3.4vw,16px);
+    line-height:1.95;
+    color:rgba(255,255,255,.9);
+    white-space:pre-line;
+    min-height:4em;
+    border-right:2px solid rgba(255,255,255,.6);
+    display:inline-block;
+    text-align:left;
+    padding-right:3px;
+  }
+  .wish.done{border-right-color:transparent;}
+  .again{
+    margin-top:26px;
+    padding:13px 30px;
+    border:none;border-radius:999px;
+    background:linear-gradient(135deg,#ff8fb1,#a78bfa);
+    color:#fff;font-size:16px;font-weight:600;
+    font-family:inherit;
+    cursor:pointer;
+    box-shadow:0 10px 26px rgba(167,139,250,.45);
+    transition:transform .2s, box-shadow .2s;
+  }
+  .again:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(167,139,250,.6);}
+  .again:active{transform:translateY(0) scale(.97);}
+  .close-tip{
+    margin-top:14px;
+    font-size:12px;
+    color:rgba(255,255,255,.32);
+    letter-spacing:.05em;
+  }
+
+  @media (max-height:720px), (max-width:400px){
+    :root{ --cs: .82; }
+    .cake-wrap{margin:18px 0 2px;}
+  }
+</style>
+</head>
+<body>
+
+  <div class="stars" id="stars"></div>
+  <div class="balloons" id="balloons"></div>
+
+  <div class="stage">
+    <p class="eyebrow">HAPPY BIRTHDAY</p>
+    <h1 class="name">胡昊杨</h1>
+    <p class="sub">生日快乐 🎉</p>
+
+    <div class="cake-wrap">
+      <div class="cake lit" id="cake" role="button" tabindex="0" aria-label="点击吹灭蜡烛">
+        <div class="candle" id="candle">
+          <div class="flame" id="flame"></div>
+        </div>
+        <div class="layer l1"></div>
+        <div class="layer l2"></div>
+        <div class="layer l3"></div>
+        <div class="plate"></div>
+      </div>
+    </div>
+
+    <p class="hint" id="hint">👆 点一下蜡烛，许个愿吧</p>
+  </div>
+
+  <canvas id="fx"></canvas>
+
+  <div class="card" id="card">
+    <div class="card-inner">
+      <div class="cake-emoji">🎂</div>
+      <h2>胡昊杨，生日快乐！</h2>
+      <p class="wish" id="wish"></p>
+      <br>
+      <button class="again" id="again">再来一次烟花 🎉</button>
+      <p class="close-tip">点击空白处关闭</p>
+    </div>
+  </div>
+
+<script>
+/* ===================== 星空 ===================== */
+(function(){
+  const box = document.getElementById('stars');
+  let html = '';
+  for(let i=0;i<90;i++){
+    const sz = (Math.random()*1.7 + 0.9).toFixed(2);
+    html += `<div class="star" style="left:${(Math.random()*100).toFixed(2)}%;top:${(Math.random()*100).toFixed(2)}%;--sz:${sz}px;animation-delay:${(Math.random()*3.5).toFixed(2)}s"></div>`;
+  }
+  box.innerHTML = html;
+})();
+
+/* ===================== 气球 ===================== */
+(function(){
+  const box = document.getElementById('balloons');
+  const colors = ['#ff8fb1','#ffd86b','#a78bfa','#7dd3fc','#5eead4','#fca5a5'];
+  let html = '';
+  for(let i=0;i<9;i++){
+    const c = colors[i % colors.length];
+    const left = (Math.random()*92 + 2).toFixed(2);
+    const dur = (Math.random()*9 + 13).toFixed(1);
+    const delay = (-Math.random()*22).toFixed(1);
+    const scale = (Math.random()*0.5 + 0.7).toFixed(2);
+    html += `<div class="balloon" style="left:${left}%;background:radial-gradient(circle at 32% 28%, #ffffff88, ${c} 55%);animation-duration:${dur}s;animation-delay:${delay}s;transform:scale(${scale})"></div>`;
+  }
+  box.innerHTML = html;
+})();
+
+/* ===================== 彩带粒子 ===================== */
+const cv = document.getElementById('fx');
+const ctx = cv.getContext('2d');
+let W = 0, H = 0, rafId = null;
+const pieces = [];
+
+function resizeCanvas(){
+  W = cv.width = window.innerWidth;
+  H = cv.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+const COLORS = ['#ffd86b','#ff8fb1','#a78bfa','#7dd3fc','#5eead4','#fca5a5','#fde68a','#f0abfc','#ffffff'];
+
+function addPiece(x, y, angle, speed){
+  const s = speed * (0.55 + Math.random()*0.85);
+  pieces.push({
+    x, y,
+    vx: Math.cos(angle) * s,
+    vy: Math.sin(angle) * s,
+    w: 6 + Math.random()*7,
+    h: 8 + Math.random()*9,
+    rot: Math.random()*Math.PI*2,
+    vr: (Math.random()-0.5)*0.42,
+    color: COLORS[(Math.random()*COLORS.length)|0],
+    flip: Math.random()*Math.PI*2,
+    flipSpeed: 0.07 + Math.random()*0.13,
+    drag: 0.984 + Math.random()*0.012
+  });
+}
+
+function burstAt(x, y, count, speed, angleFrom, angleTo){
+  for(let i=0;i<count;i++){
+    const a = (angleFrom === undefined)
+      ? Math.random()*Math.PI*2
+      : angleFrom + Math.random()*(angleTo - angleFrom);
+    addPiece(x, y, a, speed);
+  }
+  startLoop();
+}
+
+function loop(){
+  ctx.clearRect(0, 0, W, H);
+  for(let i=pieces.length-1;i>=0;i--){
+    const p = pieces[i];
+    p.vy += 0.32;
+    p.vx *= p.drag;
+    p.vy *= 0.995;
+    p.x += p.vx;
+    p.y += p.vy;
+    p.rot += p.vr;
+    p.flip += p.flipSpeed;
+
+    if(p.y > H + 90 || p.x < -90 || p.x > W + 90){
+      pieces.splice(i, 1);
+      continue;
+    }
+
+    const fy = Math.abs(Math.cos(p.flip));
+    ctx.save();
+    ctx.translate(p.x, p.y);
+    ctx.rotate(p.rot);
+    ctx.fillStyle = p.color;
+    ctx.fillRect(-p.w/2, -p.h*fy/2, p.w, Math.max(p.h*fy, 1.2));
+    ctx.restore();
+  }
+
+  if(pieces.length){
+    rafId = requestAnimationFrame(loop);
+  }else{
+    rafId = null;
+    ctx.clearRect(0, 0, W, H);
+  }
+}
+
+function startLoop(){
+  if(!rafId) rafId = requestAnimationFrame(loop);
+}
+
+/* ===================== 生日歌（Web Audio） ===================== */
+let audioCtx = null;
+const NOTE = { G4:392.00, A4:440.00, B4:493.88, C5:523.25, D5:587.33, E5:659.25, F5:698.46, G5:783.99 };
+const SONG = [
+  [NOTE.G4,.75],[NOTE.G4,.25],[NOTE.A4,1],[NOTE.G4,1],[NOTE.C5,1],[NOTE.B4,2],
+  [NOTE.G4,.75],[NOTE.G4,.25],[NOTE.A4,1],[NOTE.G4,1],[NOTE.D5,1],[NOTE.C5,2],
+  [NOTE.G4,.75],[NOTE.G4,.25],[NOTE.G5,1],[NOTE.E5,1],[NOTE.C5,1],[NOTE.B4,1],[NOTE.A4,2],
+  [NOTE.F5,.75],[NOTE.F5,.25],[NOTE.E5,1],[NOTE.C5,1],[NOTE.D5,1],[NOTE.C5,2]
+];
+
+function playSong(){
+  try{
+    audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+    if(audioCtx.state === 'suspended') audioCtx.resume();
+
+    const beat = 0.44;
+    let t = audioCtx.currentTime + 0.12;
+
+    SONG.forEach(function(item){
+      const freq = item[0], dur = item[1] * beat;
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.value = freq;
+      gain.gain.setValueAtTime(0.0001, t);
+      gain.gain.linearRampToValueAtTime(0.16, t + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.0001, t + dur * 0.98);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start(t);
+      osc.stop(t + dur + 0.02);
+      t += dur;
+    });
+  }catch(e){ /* 静默失败 */ }
+}
+
+/* ===================== 主逻辑 ===================== */
+const cake    = document.getElementById('cake');
+const candle  = document.getElementById('candle');
+const flame   = document.getElementById('flame');
+const hint    = document.getElementById('hint');
+const card    = document.getElementById('card');
+const wishEl  = document.getElementById('wish');
+const againBtn= document.getElementById('again');
+
+const WISH_TEXT =
+  '愿你许下的每个愿望，都能悄悄成真 ✨\n' +
+  '愿你每一岁，都奔走在自己的热爱里 🌟\n' +
+  '新的一岁：万事胜意，天天开心！';
+
+let blown = false;
+let typeTimer = null;
+
+function cakeTopPoint(){
+  const r = cake.getBoundingClientRect();
+  return { x: r.left + r.width/2, y: r.top + 26 };
+}
+
+function fireConfetti(){
+  const p = cakeTopPoint();
+  burstAt(p.x, p.y, 90, 12);
+  setTimeout(function(){
+    burstAt(0, H, 45, 15, -Math.PI*0.42, -Math.PI*0.15);
+    burstAt(W, H, 45, 15, -Math.PI*0.85, -Math.PI*0.58);
+  }, 160);
+}
+
+function typeWish(){
+  clearInterval(typeTimer);
+  wishEl.textContent = '';
+  wishEl.classList.remove('done');
+  let i = 0;
+  typeTimer = setInterval(function(){
+    wishEl.textContent += WISH_TEXT[i++];
+    if(i >= WISH_TEXT.length){
+      clearInterval(typeTimer);
+      wishEl.classList.add('done');
+    }
+  }, 55);
+}
+
+function blowCandle(){
+  if(blown) return;
+  blown = true;
+
+  flame.classList.add('out');
+  candle.classList.add('smoke');
+  cake.classList.remove('lit');
+  hint.textContent = '愿望已经收到啦 🌠';
+  hint.style.opacity = '.75';
+
+  playSong();
+
+  setTimeout(fireConfetti, 260);
+
+  setTimeout(function(){
+    card.classList.add('show');
+    typeWish();
+  }, 700);
+}
+
+function resetCandle(){
+  card.classList.remove('show');
+  clearInterval(typeTimer);
+  setTimeout(function(){
+    blown = false;
+    flame.classList.remove('out');
+    candle.classList.remove('smoke');
+    cake.classList.add('lit');
+    hint.textContent = '👆 点一下蜡烛，许个愿吧';
+    hint.style.opacity = '';
+    wishEl.textContent = '';
+    wishEl.classList.remove('done');
+  }, 420);
+}
+
+cake.addEventListener('click', blowCandle);
+cake.addEventListener('keydown', function(e){
+  if(e.key === 'Enter' || e.key === ' '){
+    e.preventDefault();
+    blowCandle();
+  }
+});
+
+againBtn.addEventListener('click', function(e){
+  e.stopPropagation();
+  fireConfetti();
+});
+
+card.addEventListener('click', function(e){
+  if(e.target === card) resetCandle();
+});
+
+/* 页面初次进入撒一点点星光 */
+window.addEventListener('load', function(){
+  setTimeout(function(){
+    burstAt(W/2, H*0.35, 40, 7);
+  }, 500);
+});
+</script>
+</body>
+</html>
